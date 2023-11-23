@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import StudentList2 from "./StudentList2";
+import Icon from "@mdi/react";
+import { mdiSortAlphabeticalAscending } from '@mdi/js';
 
 import { Modal } from "react-bootstrap";
 import Alert from "@mui/material/Alert";
@@ -32,6 +34,7 @@ export default function Appp() {
   const handleShow = () => setShow(true);
 
   const [alert, setAlert] = useState(null);
+  //alert
   const showAlert = (message) => {
     setAlert({
       msg: message,
@@ -40,7 +43,7 @@ export default function Appp() {
       setAlert(null);
     }, 1000);
   };
-
+// add student
   const addStudent = () => {
     if (name.trim() === "" || age.trim() === "") {
       showAlert("Name and Age are required fields.");
@@ -240,6 +243,10 @@ export default function Appp() {
     }
   };
 
+  function sortDataAlphabetically() {
+    setStudents([...students].sort((a, b) => a.name.localeCompare(b.name)));
+  }
+
   let componentToDisplay;
 
   switch (currentComponent) {
@@ -251,12 +258,28 @@ export default function Appp() {
         <div className=" p-2 mx-4">
           <div className="flex justify-between items-center my-4">
             <h1 className=" text-lg font-bold">LIST VIEW</h1>
+
+            <div className="flex">
+              <button
+                type="button"
+                className="btn text-white bg-black mx-3"
+                onClick={sortDataAlphabetically}
+              >
+                <Icon  path={mdiSortAlphabeticalAscending} size={1} />
+              </button>
             <Button
               variant="text text-white bg-black px-2 py-2"
               onClick={handleShow}
             >
               Add new data
             </Button>
+
+            </div>
+            
+
+
+
+
           </div>
           <ListView
             students={students}
